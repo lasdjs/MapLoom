@@ -86,12 +86,20 @@ html, body {
   border-color: #b94a48 !important;
 }
 
-#add-layer-dialog .modal-dialog{
-  width: 414px;
-}
-
 #layerInfoDialog .modal-dialog {
   width: 450px;
+}
+
+@media (min-width: 960px){
+  #add-layer-dialog .modal-dialog {
+      width: 90%;
+  }
+}
+
+@media (max-width: 600px) and (min-width: 959px){
+  #add-layer-dialog .modal-dialog {
+      width: 95% !important;
+  }
 }
 
 #attribute-edit-dialog .modal-dialog{
