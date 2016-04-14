@@ -5,27 +5,38 @@
   function loomMappreviewDirective() {
     return {
       scope: {},
-      controller: loomMappreviewCtrl,
-      template: '<div id="maapa"></div>'
+      template: '<div id="maapa"></div>',
+      controller: loomMappreviewCtrl
+
     };
   }
-  var map;
+
   function loomMappreviewCtrl() {
-    map = new ol.Map({
-      target: 'maapa',
-      layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
-        })
-      ],
-      view: new ol.View({
-        center: [0, 0],
-        zoom: 2
-      })
+
+    var map;
+
+    $('#add-layer-dialog').on('shown.bs.modal', function() {
+      if (map === undefined) {
+        runMap();
+      }
     });
 
-    map.on('dragend', function() {
-    });
+    function runMap() {
+      map = new ol.Map({
+        target: 'maapa',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        view: new ol.View({
+          center: [0, 0],
+          zoom: 2
+        })
+      });
+      map.on('dragend', function() {
+      });
+    }
   }
 
 })();
