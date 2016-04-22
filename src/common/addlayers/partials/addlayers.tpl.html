@@ -12,16 +12,20 @@
                         <div>
                             <nav class="filter">
                                 <div class="input-group search-bar" >
-                                    <input name="text_search_input_exp" id="text_search_input_exp" placeholder="Search for StoryLayers ..." ng-model="filterOptions.text" type="text" class="form-control search-input">
+                                    <input name="text_search_input_exp" id="text_search_input_exp" placeholder="Search for StoryLayers ..."
+                                      ng-model="filterOptions.text" type="text" class="form-control search-input">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary search-btn" ng-disabled="!filterOptions.text" ng-click="search()" type="submit" id="text_search_btn"><i class="glyphicon glyphicon-search"></i> Search</button>
+                                        <button class="btn btn-primary search-btn" ng-disabled="!filterOptions.text" ng-click="search()"
+                                          type="submit" id="text_search_btn"><i class="glyphicon glyphicon-search"></i> Search</button>
                                     </span>
                                 </div>
                             </nav>
                             <div class="clearfix search-results">
-                                    <div class = "col-lg-4 col-md-6 col-sm-6  panel panel-default" ng-repeat="layer in layersConfig = serverService.getLayersConfigByName('Local Geoserver') | filter:filterLayers | filter:filterAddedLayers">
+                                    <div class = "col-lg-4 col-md-6 col-sm-6  panel panel-default" style="padding-right: 10px;padding-left: 10px;"
+                                      ng-repeat="layer in layersConfig = serverService.getLayersConfigByName('Local Geoserver') | filter:filterLayers | filter:filterAddedLayers">
                                         <div class = "panel-body">
-                                          <img ng-show="layer.thumbnail_url" class = "img-responsive" src = "{{layer.thumbnail_url}}" height="150" width="200">
+                                          <img ng-show="layer.thumbnail_url" class = "img-responsive" src = "{{layer.thumbnail_url}}"
+                                            height="150" width="200" style="max-height: 80px;max-width: 80px;">
                                             <h4 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">{{ layer.Title }}</h4>
                                             <i class = "icon-user"></i><h4>{{ layer.author }}</h4>
                                             <button class = "btn btn-default center-block" ng-click = "addLayers(layer)" data-dismiss="modal">Use</button>

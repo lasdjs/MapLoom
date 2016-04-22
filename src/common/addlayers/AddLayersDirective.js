@@ -7,6 +7,7 @@
         return {
           templateUrl: 'addlayers/partials/addlayers.tpl.html',
           link: function(scope, element) {
+            mapService.runMap();
             var searchFavorites = false;
             var searchHyper = true;
             scope.serverService = serverService;
@@ -100,6 +101,7 @@
 
             scope.addLayers = function(layerConfig) {
               console.log(layerConfig);
+
               if (layerConfig.add) {
                 // NOTE: minimal config is the absolute bare minimum info that will be send to webapp containing
                 //       maploom such as geonode. At this point, only source (server id), and name are used. If you

@@ -23,6 +23,7 @@
   var modify = null;
 
   var editableLayers_ = null;
+  var inicialRun = null;
 
   var createVectorEditLayer = function() {
     return new ol.layer.Vector({
@@ -175,6 +176,15 @@
         }
       });
       return this;
+    };
+
+    this.runMap = function(target) {
+      if (goog.isDefAndNotNull(inicialRun)) {
+        this.map = this.createMap(target);
+        // now taht we have a map, lets try to add layers and servers
+        this.loadLayers();
+      }
+      inicialRun = true;
     };
 
     this.activateDragZoom = function() {
@@ -532,6 +542,7 @@
       var layer = null;
       var nameSplit = null;
       var url = null;
+      console.log('asldbasi kjkjd hwkjd', fullConfig);
       if (!goog.isDefAndNotNull(fullConfig)) {
         //dialogService_.error(translate_.instant('map_layers'), translate_.instant('load_layer_failed',
         //    {'layer': minimalConfig.name}), [translate_.instant('btn_ok')], false);
@@ -549,7 +560,9 @@
           })
         });
       } else {
+        //console.log('------------- Entra aqui 1 ----------------------');
         if (fullConfig.type && fullConfig.type == 'mapproxy_tms') {
+          //alert('Entra aqui 2');
           var layername = '';
           if (fullConfig.Name.split(':').length > 1) {
             layername = fullConfig.Name.split(':')[1];
@@ -1194,7 +1207,8 @@
       }
     };
 
-    this.createMap = function() {
+    this.createMap = function(target) {
+      target = target || 'map';
       var coordDisplay;
       if (settings.coordinateDisplay === coordinateDisplays.DMS) {
         coordDisplay = ol.coordinate.toStringHDMS;
@@ -1227,7 +1241,7 @@
         ]),
         //renderer: ol.RendererHint.CANVAS,
         ol3Logo: false,
-        target: 'map',
+        target: target,
         view: new ol.View({
           center: this.configuration.map.center,
           zoom: this.configuration.map.zoom,
