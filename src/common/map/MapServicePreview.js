@@ -1,5 +1,5 @@
 (function() {
-  var module = angular.module('loom_map_service', ['ngCookies']);
+  var module = angular.module('loom_map_service_preview', ['ngCookies']);
 
   var service_ = null;
   var serverService_ = null;
@@ -23,7 +23,7 @@
   var modify = null;
 
   var editableLayers_ = null;
-  // var inicialRun = null;
+  var inicialRun = null;
 
   var createVectorEditLayer = function() {
     return new ol.layer.Vector({
@@ -122,7 +122,7 @@
   })();
 
 
-  module.provider('mapService', function() {
+  module.provider('mapServicepreview', function() {
     this.$get = function($translate, serverService, geogigService, $http, pulldownService,
                          $cookieStore, $cookies, configService, dialogService, tableViewService, $rootScope, $q) {
       service_ = this;
@@ -179,9 +179,11 @@
     };
 
     this.runMap = function(target) {
-      this.map = this.createMap(target);
-      // now taht we have a map, lets try to add layers and servers
-      this.loadLayers();
+      if (goog.isDefAndNotNull(inicialRun)) {
+        this.map = this.createMap(target);
+        // now taht we have a map, lets try to add layers and servers
+        this.loadLayers();
+      }
     };
 
     this.activateDragZoom = function() {
@@ -475,14 +477,6 @@
       }
 
       return deferredResponse.promise;
-    };
-
-    this.removeLayer2 = function() {
-      var mapLayers = this.map.getLayerGroup().getLayers().getArray();
-
-      for (var index = 0; index < mapLayers.length; index++) {
-        this.map.removeLayer(mapLayers[index]);
-      }
     };
 
     /**
@@ -1213,7 +1207,7 @@
     };
 
     this.createMap = function(target) {
-      target = target || 'map';
+      target = target || 'maapa';
       var coordDisplay;
       if (settings.coordinateDisplay === coordinateDisplays.DMS) {
         coordDisplay = ol.coordinate.toStringHDMS;

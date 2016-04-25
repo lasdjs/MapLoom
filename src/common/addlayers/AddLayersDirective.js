@@ -7,7 +7,6 @@
         return {
           templateUrl: 'addlayers/partials/addlayers.tpl.html',
           link: function(scope, element) {
-            mapService.runMap();
             var searchFavorites = false;
             var searchHyper = true;
             scope.serverService = serverService;
@@ -116,6 +115,10 @@
                 };
                 mapService.addLayer(minimalConfig);
               }
+            };
+
+            scope.removeLayer = function() {
+              mapService.removeLayer2();
             };
 
             scope.changeCredentials = function() {
