@@ -479,9 +479,11 @@
 
     this.removeLayer2 = function() {
       var mapLayers = this.map.getLayerGroup().getLayers().getArray();
-
-      for (var index = 0; index < mapLayers.length; index++) {
+      //console.log(mapLayers);
+      for (var index = 1; index < mapLayers.length; index++) {
+        // console.log(this.map.getLayerGroup().getLayers().getArray());
         this.map.removeLayer(mapLayers[index]);
+        mapLayers = this.map.getLayerGroup().getLayers().getArray();
       }
     };
 
@@ -494,21 +496,24 @@
      */
     this.addLayer = function(minimalConfig, opt_layerOrder) {
       var server = serverService_.getServerById(minimalConfig.source);
+
       if (server.ptype === 'gxp_mapquestsource' && minimalConfig.name === 'naip') {
         minimalConfig.name = 'sat';
       }
 
       var fullConfig = null;
       if (goog.isDefAndNotNull(server)) {
+        //watch error
         fullConfig = serverService_.getLayerConfig(server.id, minimalConfig.name);
       }
 
       console.log('-- MapService.addLayer. minimalConfig: ', minimalConfig, ', fullConfig: ', fullConfig, ', server: ',
           server, ', opt_layerOrder: ', opt_layerOrder);
-
+      console.log(fullConfig.CRS);
       // download missing projection projection if we don't have it
       if (goog.isDefAndNotNull(fullConfig)) {
         var projcode = service_.getCRSCode(fullConfig.CRS);
+
         if (goog.isDefAndNotNull(projcode)) {
           console.log('----[ addLayer, looking up projection: ', projcode);
           // do we have the projection from definition in src/app/Proj4jDefs.js,  if not, try to download

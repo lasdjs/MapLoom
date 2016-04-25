@@ -22,13 +22,13 @@
                             </nav>
                             <div class="clearfix search-results">
                                     <div class = "col-lg-4 col-md-6 col-sm-6  panel panel-default" style="padding-right: 10px;padding-left: 10px;"
-                                      ng-repeat="layer in layersConfig = serverService.getLayersConfigByName('Local Geoserver') | filter:filterLayers | filter:filterAddedLayers">
+                                      ng-repeat="layer in layersConfig = serverService.getLayersConfigByName('Local Geoserver') | filter:filterLayers | filter:true">
                                         <div class = "panel-body" ng-mouseover--="addLayers(layer)">
                                           <img ng-show="layer.thumbnail_url" class = "img-responsive" src = "{{layer.thumbnail_url}}"
                                             height="150" width="200" style="max-height: 80px;max-width: 80px;">
                                             <h4 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">{{ layer.Title }}</h4>
                                             <i class = "icon-user"></i><h4>{{ layer.author }}</h4>
-                                            <button class = "btn btn-default center-block" ng-click = "addLayers(layer)" data-dismiss="modal">Use</button>
+                                            <button class = "btn btn-default center-block" ng-click = "addLayers(layer)" data-dismiss---="modal">Use</button>
                                             <a ng-href="{{ layer.detail_url }}" target = "_blank"><button class = "btn btn-default center-block">View</button></a>
                                         </div>
                                     </div>
